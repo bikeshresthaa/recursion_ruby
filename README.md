@@ -1,1 +1,2 @@
 # recursion_ruby
+This repository contains simple implementations of Fibonacci sequence and Merge Sort in Ruby. The goal of this project is to practice and understand recursion by solving two classic problems.
