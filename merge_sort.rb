@@ -1,45 +1,40 @@
-def merge_sort(arr, lb, ub)
-  if lb < ub
-    mid = (lb + ub) / 2
-    merge_sort(arr, lb, mid)
-    merge_sort(arr, mid + 1, ub)
-    merge(arr, lb, mid, ub)
-  end
+def merge_sort(arr)
+  return arr if arr.length <= 1
+
+  mid = arr.length / 2
+
+  left_half = arr[0...mid]
+  right_half = arr[mid...arr.length]
+
+  sorted_left = merge_sort(left_half)
+  sorted_right = merge_sort(right_half)
+  merge(sorted_left, sorted_right)
 end
 
-def merge(arr, lb, mid, ub)
-  i = lb
-  j = mid + 1
-  k = lb
-  temp = []
+def merge(left, right)
+  result = []
+  left_index = 0
+  right_index = 0
 
-  while i <= mid && j <= ub
-    if arr[i] <= arr[j]
-      temp << arr[i]
-      i += 1
+  while left_index < left.length && right_index < right.length
+    if left[left_index] <= right[right_index]
+      result << left[left_index]
+      left_index += 1
     else
-      temp << arr[j]
-      j += 1
-    end
-    k += 1
-  end
-
-  if i > mid
-    while j <= ub
-      temp << arr[j]
-      j += 1
-      k += 1
-    end
-  else
-    while i <= mid
-      temp << arr[i]
-      i += 1
-      k += 1
+      result << right[right_index]
+      right_index += 1
     end
   end
 
-  (lb..ub).each_with_index do |index, k|
-    arr[index] = temp[k]
+  while left_index < left.length
+    result << left[left_index]
+    left_index += 1
   end
+
+  while right_index < right.length
+    result << right[right_index]
+    right_index += 1
+  end
+  result
 end
 
